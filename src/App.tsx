@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Label, Cell, PieChart, Pie, BarChart, Bar, LineChart, Line, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import MapChart from "./MapChart";
+import ReactTooltip from "react-tooltip";
 import WAUWeekByWeek from './WAU_week_by_week.json';
 import lastWeekWAUByCity from './last_week_WAU_by_city.json';
 import regUserCategory from './reg_user_category.json';
@@ -57,7 +60,6 @@ const colors20 = [
   '#bef67a',
   '#629749',
   '#b4a647',
-  // '#fff350',
   '#ffb04c',
   '#ff833a',
   '#ff8a50',
@@ -69,19 +71,20 @@ const colors20 = [
 
 
 function App() {
+  const [content, setContent] = useState("");
   const classes = useStyles();
   return (
     <div className={classes.root}>
 
-      <Typography variant="h5" paragraph={true}>
+      <Typography variant="h4" paragraph={true}>
         均一教育平台網站公開數據
       </Typography>
 
-      <Typography variant="h6" paragraph={true}>
+      <Typography variant="h5" paragraph={true} color="secondary">
         上週數據 ({WAUWeekByWeek[WAUWeekByWeek.length-1].week})
       </Typography>
 
-      <Grid container spacing={2}>
+      <Grid container spacing={4}>
         <Grid item xs>
           <Paper className={classes.paper}>
             <ResponsiveContainer width="100%" height={300}>
@@ -101,11 +104,61 @@ function App() {
       <div >&zwj;</div>
       <div >&zwj;</div>
 
-      <Typography variant="h6" paragraph={true}>
+      <Typography variant="h5" paragraph={true}  color="secondary">
         累計數據 (2012-10~{WAUWeekByWeek[WAUWeekByWeek.length-1].week})
       </Typography>
 
-      <Grid container spacing={2}>
+      <Grid container spacing={4}>
+        <Grid item xs>
+          <Paper className={classes.paper}>
+            <MapChart setTooltipContent={setContent} />
+            <ReactTooltip>{content}</ReactTooltip>
+          </Paper>
+        </Grid>
+        
+        <Grid item xs>
+          <Grid container spacing={4}>
+            <Grid item xs>
+              <Paper className={classes.paper}>
+                <Typography variant="h4" paragraph={true} align="center">
+                  {(3697).toLocaleString('en')}
+                </Typography>
+                <Typography variant="h5" paragraph={true} align="center">
+                  知識點個數
+                </Typography>
+              </Paper>
+            </Grid>
+          </Grid>
+          <Grid>
+          <Grid container spacing={4}>
+            <Grid item xs>
+              <Paper className={classes.paper}>
+                <Typography variant="h4" paragraph={true}  align="center">
+                  63,832
+                </Typography>
+                <Typography variant="h5" paragraph={true} align="center">
+                  練習題總數
+                </Typography>
+              </Paper>
+            </Grid>
+          </Grid>
+          <Grid container spacing={3}>
+            <Grid item xs>
+              <Paper className={classes.paper}>
+                <Typography variant="h4" paragraph={true} align="center">
+                  19,581
+                </Typography>
+                <Typography variant="h5" paragraph={true} align="center">
+                  影片總數
+                </Typography>
+              </Paper>
+            </Grid>
+          </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={4}>
         <Grid item xs>
           <Paper className={classes.paper}>
             <ResponsiveContainer width="100%" height={300}>
@@ -122,18 +175,18 @@ function App() {
         </Grid>
       </Grid>
 
-      <Grid container spacing={2}>
+      <Grid container spacing={4}>
         <Grid item xs>
           <Paper className={classes.paper}>
             <ResponsiveContainer width="100%" height={600}>
               <PieChart>
                 <Pie data={regUserCategory} dataKey="count" nameKey="user_role" cx="50%" cy="50%" innerRadius={100} outerRadius={230} fill="#8884d8" labelLine={false} label={renderInnerLabel}>
-                 {
+                  {
                     regUserCategory.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={colors4[index]}/>
                     ))
                   }
-                  <Label value={"註冊使用者：" + totalRegUserCnt} position="center" />
+                  <Label value={"註冊使用者：" + totalRegUserCnt.toLocaleString('en')} position="center" />
                 </Pie>
                 <Pie data={lastWeekWAUByCity} dataKey="city_total_student_cnt" nameKey="city" cx="50%" cy="50%" innerRadius={230} outerRadius={280} fill="#82ca9d" label={renderOuterLabel}>
                   {
