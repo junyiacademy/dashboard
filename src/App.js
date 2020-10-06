@@ -51,7 +51,7 @@ function App() {
                     mode: 'lines',
                   },
                 ]}
-                  layout={ {width: 1100, height: 400, title: '週活躍人數'} }
+                  layout={ {width: 'auto', height: 400, title: '週活躍人數'} }
                 />
             </Paper>
           </Grid>
@@ -61,3 +61,7 @@ function App() {
 }
 
 export default App;
+
+const data = {
+  "week": {"0": "123", "1": "1234"}
+}
