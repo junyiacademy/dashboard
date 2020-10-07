@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { Label, Cell, PieChart, Pie, BarChart, Bar, LineChart, Line, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
+import { Label, Cell, PieChart, Pie, BarChart, Bar, LineChart, Line, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import MapChart from "./MapChart";
 import ReactTooltip from "react-tooltip";
 import WAUWeekByWeek from './WAU_week_by_week.json';
 import lastWeekWAUByCity from './last_week_WAU_by_city.json';
 import regUserCategory from './reg_user_category.json';
+import contentType from './content_type.json';
 
 const totalRegUserCnt = regUserCategory.reduce((total: number, obj: any) => total + obj.count, 0);
 const RADIAN = Math.PI / 180;
@@ -23,7 +23,6 @@ const renderInnerLabel = ({cx, cy, midAngle, innerRadius, outerRadius, percent, 
     </text>
   );
 };
-
 const renderOuterLabel = (entry: any) => entry.city + "：" + (entry.city_total_student_cnt * 100 / totalRegUserCnt).toFixed(2) + "%"
 
 const useStyles = makeStyles((theme) => ({
@@ -86,6 +85,9 @@ function App() {
 
       <Grid container spacing={4}>
         <Grid item xs>
+          <Typography variant="h6">
+            上週各縣市活躍人數
+          </Typography>
           <Paper className={classes.paper}>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={lastWeekWAUByCity}>
@@ -93,7 +95,7 @@ function App() {
                 <XAxis dataKey="city"/>
                 <YAxis />
                 <Tooltip />
-                <Legend verticalAlign="top" height={36}/>
+                {/* <Legend verticalAlign="top" height={36}/> */}
                 <Bar name="上週各縣市活躍人數" dataKey="active_student_cnt" fill="#3399FF"/>
               </BarChart>
             </ResponsiveContainer>
@@ -105,11 +107,14 @@ function App() {
       <div >&zwj;</div>
 
       <Typography variant="h5" paragraph={true}  color="secondary">
-        累計數據 (2012-10~{WAUWeekByWeek[WAUWeekByWeek.length-1].week})
+        累計至當前數據 (2012-10~{WAUWeekByWeek[WAUWeekByWeek.length-1].week})
       </Typography>
 
       <Grid container spacing={4}>
         <Grid item xs>
+          <Typography variant="h6">
+            各縣市不同身分註冊使用者統計
+          </Typography>
           <Paper className={classes.paper}>
             <MapChart setTooltipContent={setContent} />
             <ReactTooltip>{content}</ReactTooltip>
@@ -117,11 +122,14 @@ function App() {
         </Grid>
         
         <Grid item xs>
+          <Typography variant="h6">
+            網站內容統計
+          </Typography>
           <Grid container spacing={4}>
             <Grid item xs>
               <Paper className={classes.paper}>
                 <Typography variant="h4" paragraph={true} align="center">
-                  {(3697).toLocaleString('en')}
+                  {contentType[0].exercise.toLocaleString('en')}
                 </Typography>
                 <Typography variant="h5" paragraph={true} align="center">
                   知識點個數
@@ -134,7 +142,7 @@ function App() {
             <Grid item xs>
               <Paper className={classes.paper}>
                 <Typography variant="h4" paragraph={true}  align="center">
-                  63,832
+                {contentType[0].exercise.toLocaleString('en')}
                 </Typography>
                 <Typography variant="h5" paragraph={true} align="center">
                   練習題總數
@@ -160,6 +168,9 @@ function App() {
 
       <Grid container spacing={4}>
         <Grid item xs>
+          <Typography variant="h6">
+            週活躍總人數
+          </Typography>
           <Paper className={classes.paper}>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={WAUWeekByWeek}>
@@ -168,7 +179,7 @@ function App() {
                 <XAxis dataKey="week" tickFormatter={(tickItem) => tickItem.substring(0, 7)}/>
                 <YAxis />
                 <Tooltip />
-                <Legend verticalAlign="top" height={36}/>
+                {/* <Legend verticalAlign="top" height={36}/> */}
               </LineChart>
             </ResponsiveContainer>
           </Paper>
@@ -177,6 +188,9 @@ function App() {
 
       <Grid container spacing={4}>
         <Grid item xs>
+          <Typography variant="h6">
+            所有註冊使用者縣市/身分占比
+          </Typography>
           <Paper className={classes.paper}>
             <ResponsiveContainer width="100%" height={600}>
               <PieChart>
