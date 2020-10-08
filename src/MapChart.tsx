@@ -21,10 +21,10 @@ const MapChart = ({ setTooltipContent }: any) => {
                 geography={geo}
                 onMouseEnter={() => {
                   const { name } = geo.properties;
-                  const student = regUserByCity.find((city) => city.index == name.slice(0,2))?.student.toLocaleString('en');
-                  const teacher = regUserByCity.find((city) => city.index == name.slice(0,2))?.teacher.toLocaleString('en');
-                  const parent = regUserByCity.find((city) => city.index == name.slice(0,2))?.parent.toLocaleString('en');
-                  const others = regUserByCity.find((city) => city.index == name.slice(0,2))?.others.toLocaleString('en');
+                  const student = regUserByCity.find((city) => city.index === name.slice(0,2))?.student.toLocaleString('en');
+                  const teacher = regUserByCity.find((city) => city.index === name.slice(0,2))?.teacher.toLocaleString('en');
+                  const parent = regUserByCity.find((city) => city.index === name.slice(0,2))?.parent.toLocaleString('en');
+                  const others = regUserByCity.find((city) => city.index === name.slice(0,2))?.others.toLocaleString('en');
                   setTooltipContent(`${name.slice(0,2)}: 學生 ${student}, 老師 ${teacher}, 家長 ${parent}, 其他 ${others}`);
                 }}
                 onMouseLeave={() => {
