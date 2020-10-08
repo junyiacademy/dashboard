@@ -13,7 +13,6 @@ import contentType from './content_type.json';
 import lastWeekWAUByHour from './last_week_WAU_by_hour.json';
 import contentUsageByMonth from './content_usage_by_month.json';
 import regUserByMonth from './reg_user_by_month.json';
-import regUserByCity from './reg_user_by_city.json';
 
 const totalRegUserCnt = regUserCategory.reduce((total: number, obj: any) => total + obj.count, 0);
 const RADIAN = Math.PI / 180;
