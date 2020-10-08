@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/junyiacademy/dashboard/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/junyiacademy/dashboard/static/js/main.c499a0ff.chunk.js",
+    "main.js.map": "/junyiacademy/dashboard/static/js/main.c499a0ff.chunk.js.map",
+    "runtime-main.js": "/junyiacademy/dashboard/static/js/runtime-main.d62180f3.js",
+    "runtime-main.js.map": "/junyiacademy/dashboard/static/js/runtime-main.d62180f3.js.map",
+    "static/js/2.a7e09191.chunk.js": "/junyiacademy/dashboard/static/js/2.a7e09191.chunk.js",
+    "static/js/2.a7e09191.chunk.js.map": "/junyiacademy/dashboard/static/js/2.a7e09191.chunk.js.map",
+    "index.html": "/junyiacademy/dashboard/index.html",
+    "precache-manifest.09f182a87ef7017a2ec7ffe772bd2f3f.js": "/junyiacademy/dashboard/precache-manifest.09f182a87ef7017a2ec7ffe772bd2f3f.js",
+    "service-worker.js": "/junyiacademy/dashboard/service-worker.js",
+    "static/css/main.5ecd60fb.chunk.css.map": "/junyiacademy/dashboard/static/css/main.5ecd60fb.chunk.css.map",
+    "static/js/2.a7e09191.chunk.js.LICENSE.txt": "/junyiacademy/dashboard/static/js/2.a7e09191.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d62180f3.js",
+    "static/js/2.a7e09191.chunk.js",
+    "static/css/main.5ecd60fb.chunk.css",
+    "static/js/main.c499a0ff.chunk.js"
+  ]
+}
