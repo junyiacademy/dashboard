@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Label, Cell, PieChart, Pie, BarChart, Bar, LineChart, Line, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import { Legend, Label, Cell, PieChart, Pie, BarChart, Bar, LineChart, Line, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -183,7 +183,7 @@ function App() {
                 <XAxis dataKey="year_month"/>
                 <YAxis />
                 <Tooltip />
-                {/* <Legend verticalAlign="top" height={36}/> */}
+                <Legend verticalAlign="top" height={36}/>
               </LineChart>
             </ResponsiveContainer>
           </Paper>
