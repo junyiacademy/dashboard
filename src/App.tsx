@@ -26,7 +26,14 @@ const renderInnerLabel = ({cx, cy, midAngle, innerRadius, outerRadius, percent, 
     </text>
   );
 };
-const renderOuterLabel = (entry: any) => entry.city + "：" + (entry.city_total_student_cnt * 100 / totalRegUserCnt).toFixed(2) + "%"
+const renderOuterLabel = (entry: any) => {
+  if (entry.city_total_student_cnt > 10000) {
+    return entry.city + "：" + (entry.city_total_student_cnt * 100 / totalRegUserCnt).toFixed(2) + "%";
+  }
+  else{
+    return;
+  }  
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,36 +48,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const colors4 = [
-  '#004c6d',
-  '#0083a6',
-  '#00c0d8',
-  '#00ffff',
-];
+const colors4 = ['#880e4f', '#311b92', '#0d47a1', '#006064',];
 
 const colors20 = [
-  '#ff7961',
-  '#ff6090',
-  '#d05ce3',
-  '#9a67ea',
-  '#757de8',
-  '#6ec6ff',
-  '#67daff',
-  '#62efff',
-  '#52c7b8',
-  '#80e27e',
-  '#bef67a',
-  '#629749',
-  '#b4a647',
-  '#ffb04c',
-  '#ff833a',
-  '#ff8a50',
-  '#a98274',
-  '#cfcfcf',
-  '#8eacbb',
-  '#484848',
+  '#ff7961', '#ff6090', '#d05ce3', '#9a67ea',
+  '#757de8', '#6ec6ff', '#67daff', '#62efff',
+  '#52c7b8', '#80e27e', '#bef67a', '#629749',
+  '#b4a647', '#ffb04c', '#ff833a', '#ff8a50',
+  '#a98274', '#cfcfcf', '#8eacbb', '#484848',
 ];
-
 
 function App() {
   const [content, setContent] = useState("");
@@ -87,6 +73,7 @@ function App() {
       </Typography>
 
       <Grid container spacing={4}>
+
         <Grid item xs={6}>
           <Typography variant="h6">
             上週24小時各時段平均活躍人數
@@ -120,9 +107,11 @@ function App() {
             </ResponsiveContainer>
           </Paper>
         </Grid>
+
       </Grid>
 
       <Grid container spacing={4}>
+
         <Grid item xs>
           <Typography variant="h6">
             上週各縣市活躍人數
@@ -140,6 +129,7 @@ function App() {
             </ResponsiveContainer>
           </Paper>
         </Grid>
+
       </Grid>
 
       <div >&zwj;</div>
@@ -191,6 +181,7 @@ function App() {
       </Grid>
 
       <Grid container spacing={4}>
+
         <Grid item xs={6}>
           <Typography variant="h6">
             各縣市不同身分註冊使用者統計
@@ -202,9 +193,11 @@ function App() {
         </Grid>
         
         <Grid item xs={6}>
+
           <Typography variant="h6">
             網站內容統計
           </Typography>
+
           <Grid container spacing={4}>
             <Grid item xs>
               <Paper className={classes.paper}>
@@ -217,7 +210,7 @@ function App() {
               </Paper>
             </Grid>
           </Grid>
-          <Grid>
+
           <Grid container spacing={4}>
             <Grid item xs>
               <Paper className={classes.paper}>
@@ -230,6 +223,7 @@ function App() {
               </Paper>
             </Grid>
           </Grid>
+
           <Grid container spacing={3}>
             <Grid item xs>
               <Paper className={classes.paper}>
@@ -242,8 +236,9 @@ function App() {
               </Paper>
             </Grid>
           </Grid>
-          </Grid>
+
         </Grid>
+
       </Grid>
 
       <Grid container spacing={4}>
@@ -282,7 +277,7 @@ function App() {
                   }
                   <Label value={"註冊使用者：" + totalRegUserCnt.toLocaleString('en')} position="center" />
                 </Pie>
-                <Pie data={lastWeekWAUByCity} dataKey="city_total_student_cnt" nameKey="city" cx="50%" cy="50%" innerRadius={230} outerRadius={280} fill="#82ca9d" label={renderOuterLabel}>
+                <Pie data={lastWeekWAUByCity} dataKey="city_total_student_cnt" nameKey="city" cx="50%" cy="50%" innerRadius={230} outerRadius={280} fill="#82ca9d" label={renderOuterLabel} labelLine={false}>
                   {
                     lastWeekWAUByCity.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={colors20[index]}/>
