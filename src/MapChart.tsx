@@ -4,9 +4,10 @@ import {
   Geographies,
   Geography
 } from "react-simple-maps";
-import regUserByCity from './reg_user_by_city.json';
+// const regUserByCity = fetch('https://raw.githubusercontent.com/junyiacademy/dashboard/master/JSON/reg_user_by_city.json').then(response => response.json());
+import regUserByCity from './JSON/reg_user_by_city.json';
 
-const geoUrl = "https://raw.githubusercontent.com/jason2506/Taiwan.TopoJSON/master/topojson/counties.json";
+const geoUrl = "https://raw.githubusercontent.com/junyiacademy/dashboard/master/src/JSON/counties.json";
 
 
 const MapChart = ({ setTooltipContent }: any) => {
