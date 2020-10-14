@@ -42,7 +42,7 @@ parent = reg_user_by_city[reg_user_by_city.user_role == 'parent']
 parent.rename(columns={'cnt': 'parent'}, inplace=True)
 parent.drop(columns='user_role', inplace=True)
 other = reg_user_by_city[reg_user_by_city.user_role == 'others']
-other.rename(columns={'cnt': 'others'}, inplace=True)
+other.rename(columns={'cnt': 'other'}, inplace=True)
 other.drop(columns='user_role', inplace=True)
 null = reg_user_by_city[reg_user_by_city.user_role.isnull()]
 null.rename(columns={'cnt': 'null'}, inplace=True)
@@ -50,6 +50,6 @@ null.drop(columns='user_role', inplace=True)
 dfs = [df.set_index(['user_city']) for df in [student, teacher, parent, other, null]]
 df_all = pd.concat(dfs, axis=1).reset_index()
 df_all.fillna(0, inplace=True)
-df_all['others'] = df_all['others'] + df_all['null']
+df_all['others'] = df_all['other'] + df_all['null']
 df_all.drop(columns=['null', 'other'], inplace=True)
 df_all.to_json('./JSON/reg_user_by_city.json', orient='records')
