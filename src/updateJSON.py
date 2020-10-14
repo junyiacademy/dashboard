@@ -1,6 +1,7 @@
+from azure.storage.blob import BlobServiceClient, ContentSettings
+import pandas as pd
 from google.cloud import bigquery
 client = bigquery.Client()
-import pandas as pd
 
 WAU_week_by_week = client.query('CALL `IntegratedTable.WAU_week_by_week`();').to_dataframe()
 WAU_week_by_week.to_json('./JSON/WAU_week_by_week.json', orient='records')
@@ -53,3 +54,19 @@ df_all.fillna(0, inplace=True)
 df_all['others'] = df_all['other'] + df_all['null']
 df_all.drop(columns=['null', 'other'], inplace=True)
 df_all.to_json('./JSON/reg_user_by_city.json', orient='records')
+
+connection_string = ''
+
+blob_service_client = BlobServiceClient.from_connection_string(connection_string)
+container_client = blob_service_client.get_container_client('dashboard-json')
+content_settings_json = ContentSettings(content_type='application/json')
+
+files = ['content_type.json', 'content_usage_by_month.json', 'last_week_WAU_by_city.json',
+'last_week_WAU_by_hour.json', 'reg_user_by_city.json', 'reg_user_by_month.json',
+'reg_user_category.json', 'user_count_by_week.json', 'WAU_week_by_week.json']
+
+for file in files:
+    with open(f'./JSON/{file}', 'rb') as data:
+        blob_client = container_client.upload_blob(data=data, name=file, overwrite=True, content_settings=content_settings_json)
+        properties = blob_client.get_blob_properties()
+        print(properties)
