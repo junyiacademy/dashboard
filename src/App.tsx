@@ -15,16 +15,6 @@ import lastWeekWAUByHour from './JSON/last_week_WAU_by_hour.json';
 import contentUsageByMonth from './JSON/content_usage_by_month.json';
 import regUserByMonth from './JSON/reg_user_by_month.json';
 
-// const WAUWeekByWeek = fetch('https://raw.githubusercontent.com/junyiacademy/dashboard/master/JSON/WAU_week_by_week.json').then(response => response.json());
-// const lastWeekWAUByCity = fetch('https://raw.githubusercontent.com/junyiacademy/dashboard/master/JSON/last_week_WAU_by_city.json').then(response => response.json());
-// const regUserCategory = fetch('https://raw.githubusercontent.com/junyiacademy/dashboard/master/src/JSON/reg_user_category.json');
-// const test = fetch('https://raw.githubusercontent.com/junyiacademy/dashboard/master/src/JSON/reg_user_category.json').then(response => response.json()).then(result => console.log(result.reduce((total: number, obj: any) => total + obj.count, 0)));
-// const contentType = fetch('https://raw.githubusercontent.com/junyiacademy/dashboard/master/JSON/content_type.json').then(response => response.json());
-// const lastWeekWAUByHour = fetch('https://raw.githubusercontent.com/junyiacademy/dashboard/master/JSON/last_week_WAU_by_hour.json').then(response => response.json());
-// const contentUsageByMonth = fetch('https://raw.githubusercontent.com/junyiacademy/dashboard/master/JSON/content_usage_by_month.json').then(response => response.json());
-// const regUserByMonth = fetch('https://raw.githubusercontent.com/junyiacademy/dashboard/master/JSON/reg_user_by_month.json').then(response => response.json());
-
-
 const totalRegUserCnt = regUserCategory.reduce((total: number, obj: any) => total + obj.count, 0);
 const RADIAN = Math.PI / 180;
 const renderInnerLabel = ({cx, cy, midAngle, innerRadius, outerRadius, percent, user_role,}: any) => {
