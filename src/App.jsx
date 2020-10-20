@@ -36,7 +36,7 @@ const colors20 = [
 function App() {
   const classes = useStyles();
   const [content, setContent] = useState("");
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState({});
   const [WAUWeekByWeek, setWAUWeekByWeek] = useState([]);
   const [lastWeekWAUByCity, setLastWeekWAUByCity] = useState([]);
   const [regUserCategory, setRegUserCategory] = useState([]);
@@ -63,14 +63,14 @@ function App() {
         response => {if(response.ok) return response.json()}).then(
           json => jsonPairs[filename](json)).catch(
             err => console.error(err)).finally(() => {
-               setLoading(false);
+               setLoading({...isLoading, [filename]: false});
             })
     };
 
     Object.keys(jsonPairs).forEach(filename => fetchJSON(filename));
-  }, []);
+  }, [isLoading]);
 
-  const renderInnerLabel = useCallback(({cx, cy, midAngle, innerRadius, outerRadius, percent, user_role,}) => {
+  const renderInnerLabel = isLoading.length >= 8 ? ({cx, cy, midAngle, innerRadius, outerRadius, percent, user_role,}) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN) - 15;
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
@@ -79,7 +79,7 @@ function App() {
         {`${user_role}：${(percent * 100).toFixed(0)}%`}
       </text>
     );
-  }, [],);
+  } : null;
 
   const renderOuterLabel = useCallback(entry => {
     if (entry.city_total_student_cnt > 10000) {
@@ -88,7 +88,7 @@ function App() {
       else{ return; }  
   }, [regUserCategory],);
 
-  if (isLoading) {
+  if (Object.keys(isLoading).length === 8) {
     return (<div><p>Loading...</p></div>)
   }
   else {    
@@ -100,7 +100,7 @@ function App() {
         </Typography>
 
         <Typography variant="h5" paragraph={true} color="secondary">
-          上週數據({ WAUWeekByWeek[WAUWeekByWeek.length - 1].week })
+          上週數據({ WAUWeekByWeek.length > 1 ? WAUWeekByWeek[WAUWeekByWeek.length - 1].week : []})
         </Typography>
 
         <Grid container spacing={4}>
@@ -167,7 +167,7 @@ function App() {
         <div >&zwj;</div>
 
         <Typography variant="h5" paragraph={true}  color="secondary">
-            長期數據 (2012-10 ~ { WAUWeekByWeek[WAUWeekByWeek.length-1].week })
+            長期數據 (2012-10 ~ { WAUWeekByWeek.length > 1 ? WAUWeekByWeek[WAUWeekByWeek.length-1].week : [] })
         </Typography>
 
         <Grid container spacing={4}>
@@ -300,7 +300,7 @@ function App() {
             <Paper className={classes.paper}>
               <ResponsiveContainer width="100%" height={600}>
                 <PieChart>
-                  <Pie data={regUserCategory} dataKey="count" nameKey="user_role" cx="50%" cy="50%" innerRadius={100} outerRadius={230} fill="#8884d8" labelLine={false} label={renderInnerLabel}>
+                  <Pie data={regUserCategory} dataKey="count" nameKey="user_role" cx="50%" cy="50%" innerRadius={100} outerRadius={230} fill="#8884d8" labelLine={false} label={renderInnerLabel? renderInnerLabel : false}>
                     {
                       regUserCategory.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={colors4[index]}/>
