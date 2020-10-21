@@ -36,7 +36,6 @@ const colors20 = [
 function App() {
   const classes = useStyles();
   const [content, setContent] = useState("");
-  const [isLoading, setLoading] = useState({});
   const [WAUWeekByWeek, setWAUWeekByWeek] = useState([]);
   const [lastWeekWAUByCity, setLastWeekWAUByCity] = useState([]);
   const [regUserCategory, setRegUserCategory] = useState([]);
@@ -45,6 +44,16 @@ function App() {
   const [contentUsageByMonth, setContentUsageByMonth] = useState([]);
   const [regUserByMonth, setRegUserByMonth] = useState([]);
   const [regUserByCity, setRegUserByCity] = useState([]);
+  const [isLoading, setLoading] = useState({
+    'WAU_week_by_week.json': true,
+    'last_week_WAU_by_city.json': true,
+    'reg_user_category.json': true,
+    'content_type.json': true,
+    'last_week_WAU_by_hour.json': true,
+    'content_usage_by_month.json': true,
+    'reg_user_by_month.json': true,
+    'reg_user_by_city.json': true,
+  });
 
   useEffect(() => {
     const jsonPairs = {
@@ -63,14 +72,14 @@ function App() {
         response => {if(response.ok) return response.json()}).then(
           json => jsonPairs[filename](json)).catch(
             err => console.error(err)).finally(() => {
-               setLoading({...isLoading, [filename]: false});
+              setLoading((preState) => ({...preState, [filename]: false}));
             })
     };
 
     Object.keys(jsonPairs).forEach(filename => fetchJSON(filename));
-  }, [isLoading]);
+  }, []);
 
-  const renderInnerLabel = isLoading.length >= 8 ? ({cx, cy, midAngle, innerRadius, outerRadius, percent, user_role,}) => {
+  const renderInnerLabel = ({cx, cy, midAngle, innerRadius, outerRadius, percent, user_role,}) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN) - 15;
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
@@ -79,7 +88,7 @@ function App() {
         {`${user_role}：${(percent * 100).toFixed(0)}%`}
       </text>
     );
-  } : null;
+  };
 
   const renderOuterLabel = useCallback(entry => {
     if (entry.city_total_student_cnt > 10000) {
@@ -88,10 +97,12 @@ function App() {
       else{ return; }  
   }, [regUserCategory],);
 
-  if (Object.keys(isLoading).length === 8) {
+  if (Object.values(isLoading).filter((val) => val === true).length > 0 ) 
+  {
     return (<div><p>Loading...</p></div>)
   }
-  else {    
+  else 
+  {    
     return (
       <div className={classes.root}>
 
