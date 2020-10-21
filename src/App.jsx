@@ -7,7 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import MapChart from "./MapChart";
 import ReactTooltip from "react-tooltip";
 
-const AzureBlobURL = '/dashboard-json/';
+// const AzureBlobURL = '/dashboard-json/';
+const AzureBlobURL = 'https://storageaccountazure88f7.blob.core.windows.net/dashboard-json/';
 const RADIAN = Math.PI / 180;
 
 const useStyles = makeStyles((theme) => ({
