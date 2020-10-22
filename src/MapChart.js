@@ -21,12 +21,12 @@ const MapChart = ({ setTooltipContent, data }) => {
                 geography={geo}
                 onMouseEnter={() => {
                   const { name } = geo.properties;
-                  const student = data.find((city) => (city.index) === name.slice(0,2))?.student.toLocaleString('en');
-                  const teacher = data.find((city) => city.index === name.slice(0,2))?.teacher.toLocaleString('en');
-                  const parent = data.find((city) => city.index === name.slice(0,2))?.parent.toLocaleString('en');
-                  const others = data.find((city) => city.index === name.slice(0,2))?.others.toLocaleString('en');
-                  const total = data.find((city) => city.index === name.slice(0,2))?.total.toLocaleString('en');
-                  setTooltipContent(`${name.slice(0,2)}: 學生 ${student}, 老師 ${teacher}, 家長 ${parent}, 其他 ${others}, 全部${total}`);
+                  const student = data.find(obj => obj.city === name.slice(0,2))?.student.toLocaleString('en');
+                  const teacher = data.find(obj => obj.city === name.slice(0,2))?.teacher.toLocaleString('en');
+                  const parent = data.find(obj => obj.city === name.slice(0,2))?.parent.toLocaleString('en');
+                  const others = data.find(obj => obj.city === name.slice(0,2))?.others.toLocaleString('en');
+                  const total = data.find((obj) => obj.city === name.slice(0,2))?.total.toLocaleString('en');
+                  setTooltipContent(`${name.slice(0,2)}: 學生 ${student}, 老師 ${teacher}, 家長 ${parent}, 其他 ${others}, 全部 ${total}`);
                 }}
                 onMouseLeave={() => {
                   setTooltipContent("");
