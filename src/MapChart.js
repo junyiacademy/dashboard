@@ -5,9 +5,9 @@ import {
   Geography
 } from "react-simple-maps";
 // for local test
-// const geoUrl = "/dashboard-json/counties.json";
+const geoUrl = "/dashboard-json/counties.json";
 // for production
-const geoUrl = "https://storageaccountazure88f7.blob.core.windows.net/dashboard-json/counties.json";
+// const geoUrl = "https://storageaccountazure88f7.blob.core.windows.net/dashboard-json/counties.json";
 
 const MapChart = ({ setTooltipContent, data }) => {
   return (
@@ -25,7 +25,8 @@ const MapChart = ({ setTooltipContent, data }) => {
                   const teacher = data.find((city) => city.index === name.slice(0,2))?.teacher.toLocaleString('en');
                   const parent = data.find((city) => city.index === name.slice(0,2))?.parent.toLocaleString('en');
                   const others = data.find((city) => city.index === name.slice(0,2))?.others.toLocaleString('en');
-                  setTooltipContent(`${name.slice(0,2)}: 學生 ${student}, 老師 ${teacher}, 家長 ${parent}, 其他 ${others}`);
+                  const total = data.find((city) => city.index === name.slice(0,2))?.total.toLocaleString('en');
+                  setTooltipContent(`${name.slice(0,2)}: 學生 ${student}, 老師 ${teacher}, 家長 ${parent}, 其他 ${others}, 全部${total}`);
                 }}
                 onMouseLeave={() => {
                   setTooltipContent("");

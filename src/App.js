@@ -8,9 +8,9 @@ import MapChart from "./MapChart";
 import ReactTooltip from "react-tooltip";
 
 // for local test
-// const AzureBlobURL = '/dashboard-json/';
+const AzureBlobURL = '/dashboard-json/';
 // for production
-const AzureBlobURL = 'https://storageaccountazure88f7.blob.core.windows.net/dashboard-json/';
+// const AzureBlobURL = 'https://storageaccountazure88f7.blob.core.windows.net/dashboard-json/';
 const RADIAN = Math.PI / 180;
 
 const useStyles = makeStyles((theme) => ({
@@ -330,9 +330,9 @@ function App() {
                     }
                     <Label value={"註冊使用者：" + regUserCategory.reduce((total, obj) => total + obj.count, 0).toLocaleString('en')} position="center" />
                   </Pie>
-                  <Pie data={lastWeekWAUByCity} dataKey="city_total_student_cnt" nameKey="city" cx="50%" cy="50%" innerRadius={230} outerRadius={280} fill="#82ca9d" label={renderOuterLabel} labelLine={false}>
+                  <Pie data={regUserByCity} dataKey="total" nameKey="city" cx="50%" cy="50%" innerRadius={230} outerRadius={280} fill="#82ca9d" label={renderOuterLabel} labelLine={false}>
                     {
-                      lastWeekWAUByCity.map((entry, index) => (
+                      regUserByCity.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={colors20[index]}/>
                       ))
                     } 
