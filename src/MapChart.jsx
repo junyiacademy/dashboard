@@ -4,7 +4,9 @@ import {
   Geographies,
   Geography
 } from "react-simple-maps";
-
+// for local test
+// const geoUrl = "/dashboard-json/counties.json";
+// for production
 const geoUrl = "https://storageaccountazure88f7.blob.core.windows.net/dashboard-json/counties.json";
 
 const MapChart = ({ setTooltipContent, data }) => {

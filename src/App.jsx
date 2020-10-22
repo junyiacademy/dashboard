@@ -7,7 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import MapChart from "./MapChart";
 import ReactTooltip from "react-tooltip";
 
+// for local test
 // const AzureBlobURL = '/dashboard-json/';
+// for production
 const AzureBlobURL = 'https://storageaccountazure88f7.blob.core.windows.net/dashboard-json/';
 const RADIAN = Math.PI / 180;
 
@@ -70,11 +72,13 @@ function App() {
 
     const fetchJSON = async(filename) => {
       await fetch(AzureBlobURL + filename).then(
-        response => {if(response.ok) return response.json()}).then(
-          json => jsonPairs[filename](json)).catch(
-            err => console.error(err)).finally(() => {
-              setLoading((preState) => ({...preState, [filename]: false}));
-            })
+        response => {
+          if(response.ok) {
+            setLoading((preState) => ({...preState, [filename]: false}));
+            return response.json();
+          }
+        }).then(json => jsonPairs[filename](json)).catch(
+            err => console.error(err))
     };
 
     Object.keys(jsonPairs).forEach(filename => fetchJSON(filename));
@@ -100,7 +104,11 @@ function App() {
 
   if (Object.values(isLoading).filter((val) => val === true).length > 0 ) 
   {
-    return (<div><p>Loading...</p></div>)
+    return (
+    <div>
+      <p>Loading...</p>
+    </div>
+    )
   }
   else 
   {    
@@ -112,7 +120,7 @@ function App() {
         </Typography>
 
         <Typography variant="h5" paragraph={true} color="secondary">
-          上週數據({ WAUWeekByWeek.length > 1 ? WAUWeekByWeek[WAUWeekByWeek.length - 1].week : []})
+          上週數據({ WAUWeekByWeek && WAUWeekByWeek.length > 1 ? WAUWeekByWeek[WAUWeekByWeek.length - 1].week : 'Loading'})
         </Typography>
 
         <Grid container spacing={4}>
@@ -179,7 +187,7 @@ function App() {
         <div >&zwj;</div>
 
         <Typography variant="h5" paragraph={true}  color="secondary">
-            長期數據 (2012-10 ~ { WAUWeekByWeek.length > 1 ? WAUWeekByWeek[WAUWeekByWeek.length-1].week : [] })
+            長期數據 (2012-10 ~ { WAUWeekByWeek && WAUWeekByWeek.length > 1 ? WAUWeekByWeek[WAUWeekByWeek.length-1].week : [] })
         </Typography>
 
         <Grid container spacing={4}>
@@ -245,7 +253,7 @@ function App() {
               <Grid item xs>
                 <Paper className={classes.paper}>
                   <Typography variant="h4" paragraph={true} align="center">
-                    {contentType.length > 0 ? contentType[0].exercise.toLocaleString('en'): 'Loading...'}
+                    {contentType && contentType.length > 0 ? contentType[0].exercise.toLocaleString('en'): 'Loading...'}
                   </Typography>
                   <Typography variant="h5" paragraph={true} align="center">
                     知識點個數
@@ -258,7 +266,7 @@ function App() {
               <Grid item xs>
                 <Paper className={classes.paper}>
                   <Typography variant="h4" paragraph={true}  align="center">
-                    {contentType.length > 0 ? contentType[0].quiz.toLocaleString('en'): 'Loading...'}
+                    {contentType && contentType.length > 0 ? contentType[0].quiz.toLocaleString('en'): 'Loading...'}
                   </Typography>
                   <Typography variant="h5" paragraph={true} align="center">
                     練習題總數
@@ -271,7 +279,7 @@ function App() {
               <Grid item xs>
                 <Paper className={classes.paper}>
                   <Typography variant="h4" paragraph={true} align="center">
-                    {contentType.length > 0 ? contentType[0].video.toLocaleString('en'): 'Loading...'}
+                    {contentType && contentType.length > 0 ? contentType[0].video.toLocaleString('en'): 'Loading...'}
                   </Typography>
                   <Typography variant="h5" paragraph={true} align="center">
                     影片總數
