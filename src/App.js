@@ -8,9 +8,9 @@ import MapChart from "./MapChart";
 import ReactTooltip from "react-tooltip";
 
 // for local test
-const AzureBlobURL = '/dashboard-json/';
+// const AzureBlobURL = '/dashboard-json/';
 // for production
-// const AzureBlobURL = 'https://storageaccountazure88f7.blob.core.windows.net/dashboard-json/';
+const AzureBlobURL = 'https://storageaccountazure88f7.blob.core.windows.net/dashboard-json/';
 const RADIAN = Math.PI / 180;
 
 const useStyles = makeStyles((theme) => ({
