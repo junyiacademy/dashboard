@@ -74,10 +74,12 @@ function App() {
       await fetch(AzureBlobURL + filename).then(
         response => {
           if(response.ok) {
-            setLoading((preState) => ({...preState, [filename]: false}));
             return response.json();
           }
-        }).then(json => jsonPairs[filename](json)).catch(
+        }).then(json => {
+          jsonPairs[filename](json);
+          setLoading((preState) => ({...preState, [filename]: false}));
+        }).catch(
             err => console.error(err))
     };
 
