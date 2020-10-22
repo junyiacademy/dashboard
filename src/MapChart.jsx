@@ -5,7 +5,7 @@ import {
   Geography
 } from "react-simple-maps";
 
-const geoUrl = "https://raw.githubusercontent.com/junyiacademy/dashboard/master/src/JSON/counties.json";
+const geoUrl = "https://storageaccountazure88f7.blob.core.windows.net/dashboard-json/counties.json";
 
 const MapChart = ({ setTooltipContent, data }) => {
   return (
